@@ -1,14 +1,53 @@
-This is an example page for exercises to be done for the workshop. You would remove this page, replace it with your own and then adjust the `workshop.yaml` and `modules.yaml` file to list your pages instead.
+:labname: OpenShift Cluster Access with CLI
+include::../tools/00_0_Lab_Header_Template.adoc[]
+:linkattrs:
 
-In this example the pages which make up the core of the workshop content are placed in a sub directory. This is only done as a suggestion. You can place all pages at the same directory level if you wish.
+:ocp_base: shared.na.openshift.opentlc.com
+:ocp_api: https://api.{ocp_base}:6443
 
-Included below are some tests and examples of page formatting using AsciiDoc.
 
-#### Standard code block
+// Following the suggestion from https://asciidoctor.org/docs/user-manual/#applying-substitutions
+:markup-in-source: verbatim,attributes,quotes
+// and then use it as:
+//[source,java,subs="{markup-in-source}"]
 
-[source,bash]
+== {labname} Lab
+
+.Goals
+* Find, download, and install the `oc` command from a cluster
+* Understand the role of the `$HOME/.kube/config` file
+* Find the login URL for a cluster
+* Log in to the cluster using the command line
+* Access different clusters and switch between them
+* Retrieve information about your session: username, server name, and token
+* Understand the role of cluster credentials and the `KUBECONFIG` variable
+* Learn how to protect your OpenShift user token
+
+.Scenario
+You are an application developer and you want to deploy your application to an OpenShift cluster.
+The cluster administrator provided you with the cluster's domain name and your username and password credentials.
+You want to log in to the cluster and prepare for application deployment.
+
+== Download and Install Command Line Tool
+
+As of Red Hat OpenShift Container Platform version 4.1, you can download the `oc` command line tool directly from the cluster.
+This ensures that the command line tool matches your cluster's version and obviates the need to search for an appropriate version.
+
+For Linux^(R)^, the default location is `https://downloads-openshift-console.apps.${CLUSTER_DOMAIN_NAME}/amd64/linux/oc`.
+The cluster's domain name for this lab is `{ocp_base}`. Outside the lab environment, this value may be different--ask
+your cluster administrator for the cluster domain name.
+
+Then you download the command line tool and move it to the directory that is included in your `$PATH`.
+Finally, you make sure that the file is executable.
+
+. Log in to the `client vm` host using your favorite SSH client and your OPENTLC credentials.
+. Run the following commands to download `oc`, install it, and make sure it is marked executable:
+
+[source,bash,subs="{markup-in-source}"]
 ----
-echo "standard code block"
+$ *wget --no-check-certificate https://downloads-openshift-console.apps.{ocp_base}/amd64/linux/oc*
+$ *sudo mv oc /usr/local/bin/oc*
+$ *sudo chmod a+x /usr/local/bin/oc*
 ----
 
 #### Click text to execute
